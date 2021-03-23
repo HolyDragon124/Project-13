@@ -18,46 +18,52 @@ This document contains the following details:
   - Machines Being Monitored
 - How to Use the Ansible Build
 
-
 ### Description of the Topology
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
 Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 - _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
+The load balancer has an offloading function that protects the server stack from Denial of Service (DoS and DDoS) attacks and also keeps service available in event that one or two of the VM's are unreachable for any reason.
+Using the jump box as a provisioner allows us to hide the vulnerable machines with no public IP address and by using ansible and ssh functionality to manage all VM effectively and efficiently at the same time.
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
 - _TODO: What does Filebeat watch for?_
+Filebeat monitors the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
 - _TODO: What does Metricbeat record?_
+Metricbeat periodically collects metrics from the operating system and from services running on the server.  In this case we are looking at Docker metrics Metricbeat takes the metrics and statistics that it collects and ships them to the output that you specify, such as Elasticsearch or Logstash.
 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-| Name       | Function   | IP Address | Operating System |
-|------------|------------|------------|------------------|
-| Jump Box   | Gateway    | 10.0.0.7   | Linux            |
-| ELK-Server | Monitoring | 10.1.0.4   | Linux            |
-| Web-1      | DVWA       | 10.0.0.4   | Linux            |
-| Web-2      | DVWA       | 10.0.0.5   | Linux            |
-| Web-3      | DVWA       | 10.0.0.6   | Linux            |
+| Name                 | Function   | IP Address | Operating System |
+|----------------------|------------|------------|------------------|
+| Jump-Box-Provisioner | Gateway    | 10.0.0.7   | Linux            |
+| ELK-Server           | Monitoring | 10.1.0.4   | Linux            |
+| Web-1                | DVWA       | 10.0.0.4   | Linux            |
+| Web-2                | DVWA       | 10.0.0.5   | Linux            |
+| Web-3                | DVWA       | 10.0.0.6   | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet.
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+-<my public IP address>
 
-Machines within the network can only be accessed by _____.
+Machines within the network can only be accessed by SSH from the Jump Box VM.
 - _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+- The ELK-Server is accessible using the Jump-Box_Provisioner via SSH from its private IP 10.0.0.7:22
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name                 | Publicly Accessible | Allowed IP Address     |
+|----------------------|---------------------|------------------------|
+| Jump-Box-Provisioner | Yes                 | <My public IP address> |
+| ELK-Server           | Yes                 | <My public IP address> |
+| Web-1                | No                  | 10.0.0.7               |
+| Web-2                | No                  | 10.0.0.7               |
+| Web-3                | No                  | 10.0.0.7               |
 
 ### Elk Configuration
 
@@ -66,19 +72,22 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 
 The playbook implements the following tasks:
 - _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Install Docker
+- Install pip3
+- Install docker python module
+-
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.PNG)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 - _TODO: List the IP addresses of the machines you are monitoring_
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filebeat
+- Metricbeat
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
@@ -97,3 +106,5 @@ _TODO: Answer the following questions to fill in the blanks:_
 - _Which URL do you navigate to in order to check that the ELK server is running?
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+To run the playbook for Filebeat use the command: ansible-playbook filebeat-playbook.yml from /etc/ansible/
+To run the playbook for Metricbeat use the command: ansible-playbook metricbeat-playbook.yml from /etc/ansible/
