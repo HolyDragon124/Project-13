@@ -8,7 +8,7 @@ The files in this repository were used to configure the network depicted below.
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook files may be used to install only certain pieces of it, such as Filebeat.
 
-- _TODO: Enter the playbook file._(Config_Files/filebeat-playbook.yml)
+- _TODO: Enter the playbook file._![TODO: Update the path with the name of your diagram](Config_Files/filebeat-playbook.yml)
 
 This document contains the following details:
 - Description of the Topologu
@@ -49,7 +49,7 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 The machines on the internal network are not exposed to the public Internet.
 
 Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
--<my public IP address>
+-my public IP address
 
 Machines within the network can only be accessed by SSH from the Jump Box VM.
 - _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
@@ -59,8 +59,8 @@ A summary of the access policies in place can be found in the table below.
 
 | Name                 | Publicly Accessible | Allowed IP Address     |
 |----------------------|---------------------|------------------------|
-| Jump-Box-Provisioner | Yes/SSH             | <My public IP address> |
-| ELK-Server           | Yes/HTTP            | <My public IP address> |
+| Jump-Box-Provisioner | Yes/SSH             | My public IP address   |
+| ELK-Server           | Yes/HTTP            | My public IP address   |
 | Web-1                | No                  | 10.0.0.7               |
 | Web-2                | No                  | 10.0.0.7               |
 | Web-3                | No                  | 10.0.0.7               |
@@ -84,6 +84,10 @@ The following screenshot displays the result of running `docker ps` after succes
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 - _TODO: List the IP addresses of the machines you are monitoring_
+- Virtual Machines Web-1, Web-2 and Web-3
+- 10.0.0.4
+- 10.0.0.5
+- 10.0.0.6
 
 We have installed the following Beats on these machines:
 - Filebeat
@@ -91,6 +95,7 @@ We have installed the following Beats on these machines:
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+Filebeat collets
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned:
