@@ -8,7 +8,7 @@ The files in this repository were used to configure the network depicted below.
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook files may be used to install only certain pieces of it, such as Filebeat.
 
-- _TODO: Enter the playbook file._![TODO: Update the path with the name of your diagram](Config_Files/filebeat-playbook.yml)
+- _TODO: Enter the playbook file._
 
 This document contains the following details:
 - Description of the Topologu
@@ -95,15 +95,21 @@ We have installed the following Beats on these machines:
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
-Filebeat collets
+Filebeat collects the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
+Metricbeat collects metrics from the operating system and from services running on the server.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned:
 
 SSH into the control node and follow the steps below:
 - Copy the playbook file to /etc/ansible/.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Update the hosts file to include each client VM private IP addresses
+    - 10.0.0.4 ansible_python_interpreter=/usr/bin/python3
+    - 10.0.0.5 ansible_python_interpreter=/usr/bin/python3
+    - 10.0.0.6 ansible_python_interpreter=/usr/bin/python3
+    - [elk]
+    - 10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+- Run the playbook, and navigate to localhost/setup.php on a client to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
